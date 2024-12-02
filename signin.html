@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | 360-Degree</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="background-icons">
+    <div class="icon icon1"></div>
+    <div class="icon icon2"></div>
+    <div class="icon icon3"></div>
+    <div class="icon icon4"></div>
+    <div class="icon icon5"></div>
+    <div class="icon icon6"></div>
+    <div class="icon icon7"></div>
+    <div class="icon icon8"></div>
+    <div class="icon icon9"></div>
+    <div class="icon icon10"></div>
+  </div>
+
+  <div class="container">
+    <h1>360-Degree Fitness</h1>
+    <form id="signin-form">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Sign In</button>
+    </form>
+    <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+  </div>
+
+  <script>
+   
+    document.getElementById('signin-form').addEventListener('submit', function (event) {
+      event.preventDefault(); 
+      window.location.href = "dashboard.html"; 
+    });
+  </script>
+</body>
+</html>

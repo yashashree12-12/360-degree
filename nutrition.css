@@ -1,0 +1,135 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #ffe6f0, #ffccd5);
+    color: #8b0047;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+ 
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%; 
+}
+
+.background-icons {
+  position: absolute;
+  top: 50%; 
+  left: 0; 
+  width: 100%;
+  display: flex;
+  justify-content: space-between; 
+  z-index: -1; 
+  pointer-events: none; 
+  transform: translateY(-50%); 
+}
+
+
+.icon {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.9; 
+  animation: moveIcons 6s ease-in-out infinite; 
+}
+
+
+.icon1 { background-image: url('images/dumbbell.png'); }
+.icon2 { background-image: url('images/apple.png'); }
+.icon3 { background-image: url('images/yoga.png'); }
+.icon4 { background-image: url('images/water-bottle.png'); }
+.icon5 { background-image: url('images/heart.png'); }
+.icon6 { background-image: url('images/lotus.png'); }
+.icon7 { background-image: url('images/dumbbell.png'); }
+.icon8 { background-image: url('images/apple.png'); }
+.icon9 { background-image: url('images/yoga.png'); }
+.icon10 { background-image: url('images/water-bottle.png'); }
+
+
+@keyframes moveIcons {
+  0% {
+    transform: translateX(0); 
+  }
+  50% {
+    transform: translateX(-10px); 
+  }
+  100% {
+    transform: translateX(10px); 
+  }
+}
+  
+  .container {
+    background: rgba(255, 235, 240, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+  }
+  
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #b3005e;
+  }
+  
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input, select, button {
+    margin: 10px 0;
+    padding: 10px;
+    border: 2px solid #ff9aae;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+  
+  input::placeholder {
+    color: #e6739f;
+  }
+  
+  select {
+    color: #8b0047;
+  }
+  
+  button {
+    background: #ff6f91;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  button:hover {
+    background: #e60057;
+  }
+  
+  label {
+    font-weight: bold;
+    color: #b3005e;
+    text-align: left;
+  }
+  
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 2rem;
+    }
+    input, select, button {
+      font-size: 0.9rem;
+    }
+  }
+  
