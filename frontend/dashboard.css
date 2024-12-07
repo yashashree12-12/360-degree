@@ -1,0 +1,109 @@
+/* dashboard.css */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('images/signinupdashboardbackground.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+  }
+  
+  .greeting-container {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 1.5rem;
+    color: #f5f5f5; 
+  }
+  
+  .greeting-container h1 {
+    font-size: 3.5rem;
+    color:#db055b; 
+    margin-bottom: 20px;
+    font-weight: 700; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); 
+  }
+  
+  .greeting-container p {
+    font-size: 1.3rem;
+    color: #111111; 
+    margin-top: 10px;
+    font-weight: 400;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); 
+  }
+  
+  .container {
+    background-color: rgba(255, 255, 255, 0.9); 
+    padding: 40px;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 30px;
+    border-radius: 12px; 
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1); 
+    text-align: center;
+  }
+  
+  .container p {
+    font-size: 1.4rem;
+    color: #141414; 
+    margin-bottom: 25px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .button-container button {
+    background-color: #cf2569; 
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s ease-in-out;
+    font-weight: bold; 
+    letter-spacing: 1px; 
+    text-transform: uppercase; 
+  }
+  
+  .button-container button:hover {
+    background-color:  #b3034c; 
+    transform: translateY(-5px); 
+  }
+  
+  .button-container button:focus {
+    outline: none; 
+    border: 2px solid #ff6f61; 
+  }
+  
+  .button-container button:active {
+    transform: translateY(2px); 
+  }
+  
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 20px;
+      max-width: 85%;
+    }
+  
+    .greeting-container h1 {
+      font-size: 2.5rem; 
+    }
+  
+    .greeting-container p {
+      font-size: 1.1rem; 
+    }
+  
+    .button-container button {
+      font-size: 1.1rem;
+      padding: 12px 30px; 
+    }
+  }
+  
