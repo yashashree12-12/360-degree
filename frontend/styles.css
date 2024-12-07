@@ -1,77 +1,32 @@
-/* General Page Styling */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, #ffe6e9, #ffd9e3); /* Soft pink gradient */
+  background: url('images/signinupdashboardbackground.jpg') no-repeat center center fixed; 
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   overflow: hidden;
   position: relative;
-  flex-direction: column; /* Align everything vertically */
+  flex-direction: column;
+  color: #fff;
 }
 
-/* Wrapper to hold the icons and form */
-.wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 100%;  /* Full screen height */
-}
-
-/* Background Icons */
-.background-icons {
+.background {
   position: absolute;
-  top: 50%; /* Center vertically */
-  left: 0; /* Align to the left */
-  width: 100%;
-  display: flex;
-  justify-content: space-between; /* Spread icons across the container */
-  z-index: -1; /* Ensure icons are behind the content */
-  pointer-events: none; /* Icons should not interfere with interactions */
-  transform: translateY(-50%); /* Vertically center the icons */
-}
-
-/* Styling for Each Icon */
-.icon {
-  width: 50px;
-  height: 50px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('images/signinupdashboardbackground.jpg') no-repeat center center fixed;
   background-size: cover;
-  background-repeat: no-repeat;
-  opacity: 0.9; /* Slight transparency */
-  animation: moveIcons 6s ease-in-out infinite; /* Keep the animation */
+  filter: blur(5px);
+  z-index: -1;
 }
 
-/* Specific Icons with Different Images */
-.icon1 { background-image: url('images/dumbbell.png'); }
-.icon2 { background-image: url('images/apple.png'); }
-.icon3 { background-image: url('images/yoga.png'); }
-.icon4 { background-image: url('images/water-bottle.png'); }
-.icon5 { background-image: url('images/heart.png'); }
-.icon6 { background-image: url('images/lotus.png'); }
-.icon7 { background-image: url('images/dumbbell.png'); }
-.icon8 { background-image: url('images/apple.png'); }
-.icon9 { background-image: url('images/yoga.png'); }
-.icon10 { background-image: url('images/water-bottle.png'); }
-
-/* Animation to Move Icons Left to Right */
-@keyframes moveIcons {
-  0% {
-    transform: translateX(0); /* Start at the original position */
-  }
-  50% {
-    transform: translateX(-10px); /* Move to the left by 10px */
-  }
-  100% {
-    transform: translateX(10px); /* Move to the right by 10px */
-  }
-}
-
-/* Form Container */
 .container {
-  background: white;
+  background: rgba(255, 255, 255, 0.9);
   width: 90%;
   max-width: 400px;
   padding: 30px;
@@ -79,18 +34,16 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   position: relative;
-  z-index: 1; /* Ensure it's above the background */
+  z-index: 1;
 }
 
-/* Heading */
 .container h1 {
   font-size: 2.5rem;
-  color: #d81b60; /* Deep pink */
+  color:  #db055b;
   margin-bottom: 20px;
   font-weight: bold;
 }
 
-/* Form Styling */
 form input {
   width: 100%;
   padding: 12px;
@@ -104,7 +57,7 @@ form input {
 form button {
   width: 100%;
   padding: 12px;
-  background: #d81b60; /* Deep pink */
+  background: #db055b;
   color: white;
   font-size: 1rem;
   font-weight: bold;
@@ -116,16 +69,17 @@ form button {
 }
 
 form button:hover {
-  background: #ad1457; /* Darker pink */
+  background: #b3034c;
 }
 
 p {
   margin-top: 15px;
   font-size: 0.9rem;
+  color: #0b0a0a;
 }
 
 p a {
-  color: #880e4f; /* Darker pink */
+  color: #068836;
   text-decoration: none;
 }
 
