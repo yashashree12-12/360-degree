@@ -1,1 +1,4 @@
 pip install django
+pip install langchain google-generativeai streamlit pandas plotly python-dotenv
+pip install langchain-community
+
