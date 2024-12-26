@@ -153,7 +153,7 @@ def diet_recommendation_view(request):
             6. List emergency food options
             7. Provide meal prep shortcuts
 
-            Note: This nutrition plan is specifically designed for achieving {profile.goal} within {profile.Target_timeline}, taking into account {profile.Food_type} dietary preferences and {profile.disease} health considerations.
+            Note: This nutrition plan is specifically designed for achieving {profile.goal} within {profile.Target_timeline}, taking into account {profile.food_type} dietary preferences and {profile.disease} health considerations.
 
             Please format the response in a clean, easy-to-read format without markdown symbols.
             """
