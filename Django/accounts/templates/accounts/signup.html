@@ -1,3 +1,4 @@
+{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,47 +77,62 @@
     .error{
       color: red;
     }
+    .attributes{
+      width: 90%;
+    }
+    
   </style>
 </head>
 <body>
+
+
   <div class="container">
-    <h1>360-Degree Fitness</h1>
+    <h1>Register </h1>    
     <form id="signup-form" method="post">
-      {% csrf_token %}
-      <div class="form-group">
-        <label for="id_username">Username</label>
-        {{ form.username }}
-        {% if form.username.errors %}
-          <div class="error">
-            {% for error in form.username.errors %}
-              <p>{{ error }}</p>
-            {% endfor %}
-          </div>
-        {% endif %}
-      </div>
-      <div class="form-group">
-        <label for="id_password1">Password</label>
-        {{ form.password1 }}
-        {% if form.password1.errors %}
-          <div class="error">
-            {% for error in form.password1.errors %}
-              <p>{{ error }}</p>
-            {% endfor %}
-          </div>
-        {% endif %}
-      </div>
-      <div class="form-group">
-        <label for="id_password2">Confirm Password</label>
-        {{ form.password2 }}
-        {% if form.password2.errors %}
-          <div class="error">
-            {% for error in form.password2.errors %}
-              <p>{{ error }}</p>
-            {% endfor %}
-          </div>
-        {% endif %}
-      </div>
-      <button type="submit">Sign Up</button>
+
+        {% csrf_token %}
+
+        <div class="attributes">
+          <div class="form-group">
+            <label for="id_username">Username</label>
+            {{ form.username|add_class:"form-control" }}
+            {% if form.username.errors %}
+              <div class="error">
+                {% for error in form.username.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_password1">Password</label>
+            {{ form.password1|add_class:"form-control" }}
+            {% if form.password1.errors %}
+              <div class="error">
+                {% for error in form.password1.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_password2">Confirm Password</label>
+            {{ form.password2 |add_class:"form-control" }}
+            {% if form.password2.errors %}
+              <div class="error">
+                {% for error in form.password2.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
+        </div>
+        </div>
+        
+
+        <button type="submit">Sign Up</button>
+
     </form>
     <p>Already have an account? <a href="{% url 'signin' %}">Sign In</a></p>
   </div>

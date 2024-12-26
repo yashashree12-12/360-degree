@@ -6,5 +6,6 @@ urlpatterns = [
     path('dashboard/', acc_views.dashboard, name='dashboard'), 
     path('accounts/', include('accounts.urls')),
     path('main/', include('main.urls')),
+    path('fitness/', include('fitness.urls')),
     path('admin/', admin.site.urls),
 ]

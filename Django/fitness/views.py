@@ -24,7 +24,7 @@ def calculate_bmi(weight, height):
     return bmi, category
 
 @login_required
-def diet_recommendation_view(request):
+def fitness_recommendation_view(request):
     if request.method == 'POST':
         form = DietRecommendationForm(request.POST)
         if form.is_valid():
@@ -132,7 +132,7 @@ def diet_recommendation_view(request):
                 bmi_category=bmi_category
             )
 
-            return render(request, 'main/recommendation_result.html', {
+            return render(request, 'fitness/result.html', {
                 'recommendation': recommendation_text,
                 'bmi': bmi,
                 'bmi_category': bmi_category,
@@ -141,4 +141,4 @@ def diet_recommendation_view(request):
     else:
         form = DietRecommendationForm()
 
-    return render(request, 'main/recommendation_form.html', {'form': form})
+    return render(request, 'fitness/form.html', {'form': form})

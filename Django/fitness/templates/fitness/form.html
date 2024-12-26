@@ -1,0 +1,113 @@
+{% extends 'main/base.html' %}
+<!-- In your recommendation_form.html -->
+{% load static %}  <!-- Add this at the top -->
+
+<style>
+    #loading-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0; 
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .running-person {
+        width: 100px;
+        height: 100px;
+        background-size: contain;
+        animation: run 1s steps(8) infinite;
+    }
+
+    @keyframes run {
+        0% { transform: translateX(-20px); }
+        100% { transform: translateX(20px); }
+    }
+
+    .loading-text {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #333;
+    }
+</style>
+
+<form method="post" id="diet-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+<!-- Loading Overlay -->
+<div id="loading-overlay">
+    <div class="running-person">
+        <!-- You can use a GIF or SVG animation here -->
+        <svg width="100" height="100" viewBox="0 0 100 100">
+            <!-- Simple running stick figure animation -->
+            <g id="runner">
+                <circle cx="50" cy="30" r="10"/> <!-- head -->
+                <line x1="50" y1="40" x2="50" y2="70" stroke="black" stroke-width="2"/> <!-- body -->
+                <line x1="50" y1="50" x2="30" y2="60" stroke="black" stroke-width="2" class="arm"/> <!-- left arm -->
+                <line x1="50" y1="50" x2="70" y2="60" stroke="black" stroke-width="2" class="arm"/> <!-- right arm -->
+                <line x1="50" y1="70" x2="30" y2="90" stroke="black" stroke-width="2" class="leg"/> <!-- left leg -->
+                <line x1="50" y1="70" x2="70" y2="90" stroke="black" stroke-width="2" class="leg"/> <!-- right leg -->
+            </g>
+        </svg>
+    </div>
+    <div class="loading-text">Generating your personalized diet plan...</div>
+</div>
+
+<script>
+document.getElementById('diet-form').addEventListener('submit', function(e) {
+    // Show loading overlay when form is submitted
+    document.getElementById('loading-overlay').style.display = 'flex';
+});
+
+// Add some animation to the stick figure
+const runner = document.getElementById('runner');
+let angle = 0;
+
+function animateRunner() {
+    angle = (angle + 5) % 360;
+    const armAngle = Math.sin(angle * Math.PI / 180) * 30;
+    const legAngle = Math.sin(angle * Math.PI / 180) * 20;
+    
+    document.querySelectorAll('.arm').forEach(arm => {
+        arm.style.transform = `rotate(${armAngle}deg)`;
+    });
+    
+    document.querySelectorAll('.leg').forEach(leg => {
+        leg.style.transform = `rotate(${legAngle}deg)`;
+    });
+    
+    requestAnimationFrame(animateRunner);
+}
+
+animateRunner();
+</script>
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold mb-6 text-center text-green-600">Diet and Workout Recommendation</h1>
+    
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+                {{ field.errors }}
+                {{ field }}
+            </div>
+        {% endfor %}
+        <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition duration-300">
+            Get Recommendations
+        </button>
+    </form>
+</div>
+{% endblock %}

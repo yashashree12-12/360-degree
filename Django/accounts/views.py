@@ -41,13 +41,6 @@ def signup(request):
 def dashboard(request):
     return render(request, 'accounts/dashboard.html')
 
-@login_required
-def nutrition(request):
-    return render(request, 'accounts/nutrition.html')
-
-@login_required
-def fitness(request):
-    return render(request, 'accounts/fitness.html')
 
 def logout_view(request):
     logout(request)

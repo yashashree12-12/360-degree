@@ -1,6 +1,5 @@
 # diet_recommendation/models.py
 from django.db import models
-from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     age = models.IntegerField()
@@ -16,11 +15,10 @@ class UserProfile(models.Model):
     food_type = models.CharField(max_length=100)
     language = models.CharField(max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
-   
 
 class DietRecommendation(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     recommendation_text = models.TextField()
     bmi = models.FloatField()
     bmi_category = models.CharField(max_length=20)
-    created_at = models.DateTimeField(auto_now_add=True) 
+    created_at = models.DateTimeField(auto_now_add=True)
