@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | 360-Degree Fitness</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <div class="greeting-container">
     <h1>Welcome to 360-Degree Fitness!</h1>
@@ -14,9 +16,9 @@
   <div class="container">
     <p>Choose your area of interest:</p>
     <div class="button-container">
-      <button><a href="{% url 'fitness_recommendation' %}">Fitness</a></button>
+      <button><a href="{% url 'fitness_recommendation'%}">Fitness</a></button>
       <button><a href="{% url 'diet_recommendation' %}">Nutrition</a></button>
-      <button ><a href="{% url 'logout' %}">Logout</a></button>
+      <button ><a href="{% url 'logout'%}">Logout</a></button>
     </div>
   </div>
   

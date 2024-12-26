@@ -14,9 +14,8 @@ class UserProfile(models.Model):
     state = models.CharField(max_length=100)
     allergics = models.TextField(blank=True)
     food_type = models.CharField(max_length=100)
-    language = models.CharField(max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
-   
+    Target_timeline = models.CharField(max_length=100) 
 
 class DietRecommendation(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)

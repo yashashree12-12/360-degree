@@ -1,7 +1,7 @@
-{% extends 'main/base.html' %}
+{% extends 'fitness/base.html' %}
 <!-- In recommendation_result.html -->
 <div class="recommendation-container">
-    <h2>Your Diet Recommendation</h2>
+    <h2>Your Fitness Recommendation</h2>
     
     <div class="bmi-info">
         <h3>Your BMI Information</h3>
@@ -61,7 +61,7 @@
 
     <div id="bmiChart" class="w-full h-96 mb-6"></div>
 
-    <a href="{% url 'diet_recommendation' %}" class="inline-block bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition duration-300">
+    <a href="{% url 'fitness_recommendation' %}" class="inline-block bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition duration-300">
         Get New Recommendation
     </a>
 </div>

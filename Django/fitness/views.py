@@ -1,13 +1,13 @@
 # diet_recommendation/views.py
 from django.shortcuts import render
-from .forms import DietRecommendationForm
-from .models import UserProfile, DietRecommendation  # Add this import
+from .forms import FitnessRecommendationForm
+from .models import FitnessProfile, FitnessRecommendation   # Add this import
 import google.generativeai as genai
 import os
 from dotenv import load_dotenv
-from django.contrib.auth.decorators import login_required
 
 load_dotenv()
+
 def calculate_bmi(weight, height):
     height_m = height / 100.0
     bmi = weight / (height_m ** 2)
@@ -23,10 +23,9 @@ def calculate_bmi(weight, height):
     
     return bmi, category
 
-@login_required
 def fitness_recommendation_view(request):
     if request.method == 'POST':
-        form = DietRecommendationForm(request.POST)
+        form = FitnessRecommendationForm(request.POST)
         if form.is_valid():
             profile = form.save()
             
@@ -38,94 +37,75 @@ def fitness_recommendation_view(request):
             
             # Create the model
             model = genai.GenerativeModel("gemini-pro")
-
+                                
             prompt = f"""
-            Create a structured, easy-to-read diet and wellness plan with clear numbering (no markdown).
-            Use simple numbering (1., 2., 3.) and clear section breaks.
-            Format the response as plain text with clear headings and proper spacing.
+            As an expert fitness trainer, create a comprehensive, personalized fitness plan in this exact structure:
 
-            Create a plan for someone with these details:
-            Age: {profile.age}
-            Gender: {profile.gender}
-            Weight: {profile.weight} kg
-            Height: {profile.height} cm
-            Diet Type: {profile.veg_or_nonveg}
-            Goal: {profile.goal}
-            Health Conditions: {profile.disease}
-            Location: {profile.country}, {profile.state}
-            Food Allergies: {profile.allergics}
-            Food Preference: {profile.food_type}
-            Language: {profile.language}
+           
+            "user_profile": 
+                "personal_info": 
+                    "age": {profile.age},
+                    "gender": "{profile.gender}",
+                    "current_weight": {profile.weight},
+                    "height": {profile.height},
+                    "health_goal": "{profile.goal}",
+                    "physical_limitations": "{profile.injuries_or_physical_limitation}",
+                    "fitness_level": "{profile.fitness_level}",
+                    "activity_level": "{profile.activity_level}",
+                    "target_timeline": "{profile.target_timeline}",
+                    "exercise_setting": "{profile.exercise_setting}",
+                    "sleep_pattern": "{profile.sleep_pattern}",
+                    "focus_areas": "{profile.specific_area}"
+         
+            ----------------------------------------------------------------------------
+            Generate a personalized fitness plan that:
+            1. Accounts for the age ({profile.age}) and gender ({profile.gender})
+            3. Adapts for injuries/limitations: {profile.injuries_or_physical_limitation}
+            4. Matches fitness level: {profile.fitness_level}
+            5. Aligns with activity level: {profile.activity_level}
+            6. Focuses on target areas: {profile.specific_area}
+            7. Provides progression for: {profile.target_timeline}
+            8. Works with available setting: {profile.exercise_setting}
+            9. Accounts for sleep pattern: {profile.sleep_pattern}
 
-            Format the response in this exact structure:
+            ----------------------------------------------------------------------------
+            Ensure the plan:
+            - Includes detailed exercise descriptions
+            - Provides alternative exercises for each movement
+            - Includes proper warm-up and cool-down routines
+            - Addresses any medical conditions or injuries
+            - Gives clear progression guidelines
+            - Includes safety precautions
+            - Matches the user's available equipment
+            - Provides modifications for different fitness levels
+            - Includes recovery protocols
+            - Has clear tracking metrics
 
-            PERSONAL DIET AND WELLNESS PLAN
-            ===============================
+            ----------------------------------------------------------------------------
 
-            1. PROFILE SUMMARY
-               -------------
-               [List key details about the person]
+            The exercises should be:
+            1. Appropriate for the user's fitness level
+            2. Achievable in the specified setting
+            3. Safe considering any medical conditions
+            4. Progressive over the timeline
+            5. Focused on the specified target areas
+            6. Balanced to prevent overuse injuries
+            7. Adaptable based on available equipment
 
-            2. DAILY NUTRITION TARGETS
-               ---------------------
-               a) Calories:
-               b) Protein:
-               c) Carbs:
-               d) Fats:
-
-            3. MEAL SCHEDULE
-               -------------
-               BREAKFAST:
-               - Item 1 (portion)
-               - Item 2 (portion)
-
-               MORNING SNACK:
-               - Item 1 (portion)
-               - Item 2 (portion)
-
-               LUNCH:
-               - Item 1 (portion)
-               - Item 2 (portion)
-
-               EVENING SNACK:
-               - Item 1 (portion)
-               - Item 2 (portion)
-
-               DINNER:
-               - Item 1 (portion)
-               - Item 2 (portion)
-
-            4. WEEKLY WORKOUT PLAN
-               -----------------
-               [Day-wise exercise plan]
-
-            5. FOODS TO INCLUDE
-               ---------------
-               [List essential foods]
-
-            6. FOODS TO AVOID
-               -------------
-               [List foods to avoid]
-
-            7. LIFESTYLE RECOMMENDATIONS
-               ------------------------
-               [List key lifestyle tips]
-
-            8. IMPORTANT NOTES
-               --------------
-               [Any specific considerations based on health conditions or allergies]
-
-            Use clear spacing and numbering. No markdown formatting.
+            Please format the response in a clean, easy-to-read format without markdown symbols.
+            give spaces after each block of information.
             """
 
-            response = model.generate_content(prompt)
-            recommendation_text = response.text
+            # response = model.generate_content(prompt)
+            # recommendation_text = response.text
 
             response = model.generate_content(prompt)
-            recommendation_text = response.text.replace('```', '').replace('#', '')
+           # In views.py
+            recommendation_text = response.text.replace('*', '').replace('#', '').replace('```', '')
+            
 
             # Save recommendation
-            diet_recommendation = DietRecommendation.objects.create(
+            fitness_recommendation = FitnessRecommendation.objects.create(
                 profile=profile,
                 recommendation_text=recommendation_text,
                 bmi=bmi,
@@ -139,6 +119,6 @@ def fitness_recommendation_view(request):
                 'profile': profile
             })
     else:
-        form = DietRecommendationForm()
+        form = FitnessRecommendationForm()
 
     return render(request, 'fitness/form.html', {'form': form})

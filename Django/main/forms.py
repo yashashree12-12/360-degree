@@ -10,17 +10,10 @@ class DietRecommendationForm(forms.ModelForm):
         ('Lose weight', 'Lose weight'),
         ('Maintain physique', 'Maintain physique')
     ]
-    LANGUAGE_CHOICES = [
-        ("English", "English"), ("Hindi", "Hindi"), ("Bengali", "Bengali"),
-        ("Punjabi", "Punjabi"), ("Tamil", "Tamil"), ("Telugu", "Telugu"),
-        ("Urdu", "Urdu"), ("Spanish", "Spanish"), ("French", "French"),
-        ("German", "German")
-    ]
 
     gender = forms.ChoiceField(choices=GENDER_CHOICES)
     veg_or_nonveg = forms.ChoiceField(choices=DIET_CHOICES)
     goal = forms.ChoiceField(choices=GOAL_CHOICES)
-    language = forms.ChoiceField(choices=LANGUAGE_CHOICES)
 
     class Meta:
         model = UserProfile

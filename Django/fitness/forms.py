@@ -1,38 +1,101 @@
-# diet_recommendation/forms.py
+# forms.py
 from django import forms
-from .models import UserProfile
+from .models import FitnessProfile
 
-class DietRecommendationForm(forms.ModelForm):
-    GENDER_CHOICES = [('Male', 'Male'), ('Female', 'Female')]
-    DIET_CHOICES = [('Veg', 'Veg'), ('Non-Veg', 'Non-Veg'), ('Veg & Non-Veg', 'Veg & Non-Veg')]
-    GOAL_CHOICES = [
-        ('Gain muscles', 'Gain muscles'),
-        ('Lose weight', 'Lose weight'),
-        ('Maintain physique', 'Maintain physique')
-    ]
-    LANGUAGE_CHOICES = [
-        ("English", "English"), ("Hindi", "Hindi"), ("Bengali", "Bengali"),
-        ("Punjabi", "Punjabi"), ("Tamil", "Tamil"), ("Telugu", "Telugu"),
-        ("Urdu", "Urdu"), ("Spanish", "Spanish"), ("French", "French"),
-        ("German", "German")
-    ]
-
-    gender = forms.ChoiceField(choices=GENDER_CHOICES)
-    veg_or_nonveg = forms.ChoiceField(choices=DIET_CHOICES)
-    goal = forms.ChoiceField(choices=GOAL_CHOICES)
-    language = forms.ChoiceField(choices=LANGUAGE_CHOICES)
-
+class FitnessRecommendationForm(forms.ModelForm):
     class Meta:
-        model = UserProfile
-        exclude = ['created_at']
+        model = FitnessProfile
+        exclude = ['created_at', 'updated_at']
         widgets = {
-            'disease': forms.Textarea(attrs={'rows': 3}),
-            'allergics': forms.Textarea(attrs={'rows': 3}),
+            'age': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your age'
+            }),
+            'gender': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'weight': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Weight in kg'
+            }),
+            'height': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Height in cm'
+            }),
+            'fitness_level': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'activity_level': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'goal': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'specific_area': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'e.g., core strength, upper body, legs'
+            }),
+            'target_timeline': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'e.g., 3 months, 6 months'
+            }),
+            'medical_conditions': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'List any medical conditions that might affect your exercise'
+            }),
+            'injuries_or_physical_limitation': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'Describe any injuries or physical limitations'
+            }),
+            'exercise_setting': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'available_equipment': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'List equipment you have access to'
+            }),
+            'sleep_pattern': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'stress_level': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'min': 1,
+                'max': 10,
+                'placeholder': 'Rate from 1-10'
+            })
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        
+        # Validate age
+        age = cleaned_data.get('age')
+        if age and (age < 13 or age > 100):
+            raise forms.ValidationError('Age must be between 13 and 100 years.')
+        
+        # Validate weight
+        weight = cleaned_data.get('weight')
+        if weight and (weight < 30 or weight > 300):
+            raise forms.ValidationError('Weight must be between 30 and 300 kg.')
+        
+        # Validate height
+        height = cleaned_data.get('height')
+        if height and (height < 100 or height > 250):
+            raise forms.ValidationError('Height must be between 100 and 250 cm.')
+        
+        # Validate stress level
+        stress_level = cleaned_data.get('stress_level')
+        if stress_level and (stress_level < 1 or stress_level > 10):
+            raise forms.ValidationError('Stress level must be between 1 and 10.')
+
+        return cleaned_data
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({
-                'class': 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500'
-            })
+        # Add any initialization if needed
+        self.fields['medical_conditions'].required = False
+        self.fields['injuries_or_physical_limitation'].required = False
+        self.fields['available_equipment'].required = False
